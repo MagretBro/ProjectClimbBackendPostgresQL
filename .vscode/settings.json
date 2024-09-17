@@ -1,0 +1,15 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "PostgresQL",
+            "database": "crazyhorse_001",
+            "username": "admin",
+            "password": "admin",
+            "connectionTimeout": 30
+        }
+    ]
+}
