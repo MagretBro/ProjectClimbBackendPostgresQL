@@ -15,20 +15,50 @@ namespace Backend.Data
 
         public DbSet<Country> Countries { get; set; }
         public DbSet<Region> Regions { get; set; }
+        public DbSet<Massive> Massives { get; set; }
+        public DbSet<Sector> Sectors { get; set; }
+        public DbSet<ClimbingRoute> ClimbingRoutes { get; set; }
+
+
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Country>()
-            .HasKey(c => c.Id);
+                .HasKey(c => c.Id);
 
             modelBuilder.Entity<Country>()
-            .HasMany(c => c.Regions)  // Категория имеет много продуктов
-            .WithOne(p => p.Country)  // Продукт имеет одну категорию
-            .HasForeignKey(p => p.CountryId); // Внешний ключ в таблице Products
+                .HasMany(c => c.Regions)  // 
+                .WithOne(p => p.Country)  // 
+                .HasForeignKey(p => p.CountryId); // 
 
             // Настройка сущности Region
             modelBuilder.Entity<Region>()
-                .HasKey(p => p.Id);
+                .HasKey(r => r.Id);
+
+            modelBuilder.Entity<Region>()
+                .HasMany(r => r.Massives) 
+                .WithOne(m => m.Region) 
+                .HasForeignKey(m => m.RegionId);
+
+            modelBuilder.Entity<Massive>()
+                .HasKey(m => m.Id);
+
+            modelBuilder.Entity<Massive>()
+                .HasMany(m => m.Sectors)
+                .WithOne(s => s.Massive)
+                .HasForeignKey(s => s.MassiveId);
+
+            modelBuilder.Entity<Sector>()
+                .HasKey(s => s.Id);
+
+            modelBuilder.Entity<Sector>()
+                .HasMany(s => s.ClimbingRoutes)
+                .WithOne(cr => cr.Sector)
+                .HasForeignKey(cr => cr.SectorId);
+
+            modelBuilder.Entity<ClimbingRoute>()
+                .HasKey(cr => cr.Id);
         }
 
     }

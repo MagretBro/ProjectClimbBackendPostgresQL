@@ -231,3 +231,4 @@
 /Users/margaritaborodina/Documents/STUDY/ANGULAR/ProjectClimb/Backend/bin/Debug/net8.0/runtimes/win/lib/net7.0/System.Drawing.Common.dll
 /Users/margaritaborodina/Documents/STUDY/ANGULAR/ProjectClimb/Backend/bin/Debug/net8.0/runtimes/win/lib/net7.0/System.Security.Cryptography.ProtectedData.dll
 /Users/margaritaborodina/Documents/STUDY/ANGULAR/ProjectClimb/Backend/bin/Debug/net8.0/runtimes/win/lib/net7.0/System.Windows.Extensions.dll
+/Users/margaritaborodina/Documents/STUDY/ANGULAR/ProjectClimb/Backend/obj/Debug/net8.0/Backend.sourcelink.json

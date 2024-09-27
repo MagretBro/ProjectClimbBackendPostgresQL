@@ -15,5 +15,8 @@ namespace Backend.Models
         
         // Навигационное свойство для связи с категорией
         public Country? Country { get; set; }
+
+        public ICollection<Massive> Massives { get; set; } = new List<Massive>(); // Навигационное свойство
+
     }
 }
