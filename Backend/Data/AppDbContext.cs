@@ -29,8 +29,8 @@ namespace Backend.Data
 
             modelBuilder.Entity<Country>()
                 .HasMany(c => c.Regions)  // 
-                .WithOne(p => p.Country)  // 
-                .HasForeignKey(p => p.CountryId); // 
+                .WithOne(r => r.Country)  // 
+                .HasForeignKey(r => r.CountryId); // 
 
             // Настройка сущности Region
             modelBuilder.Entity<Region>()

@@ -23,13 +23,13 @@ namespace Backend.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Massive>>> GetMassives()
         {
-            return await _context.Massives.Include(m => m.Sectors).ToListAsync();
+            return await _context.Massives.Include(m => m.Region).ToListAsync();
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Massive>> GetMassive(Guid id)
         {
-            var massive = await _context.Massives.Include(m => m.Sectors)
+            var massive = await _context.Massives.Include(m => m.Region)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (massive == null)

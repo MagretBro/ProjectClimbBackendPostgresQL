@@ -13,56 +13,55 @@ namespace Backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RegionsController : ControllerBase
+    public class SectorsController : ControllerBase
     {
         private readonly AppDbContext _context;
 
-        public RegionsController(AppDbContext context)
+        public SectorsController(AppDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Regions
+        // GET: api/Sectors
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Region>>> GetRegions()
+        public async Task<ActionResult<IEnumerable<Sector>>> GetSectors()
         {
-            return await _context.Regions.Include(r => r.Country).ToListAsync();
+            return await _context.Sectors.Include(r => r.Massive).ToListAsync();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Region>> GetRegion(Guid id)
+        public async Task<ActionResult<Sector>> GetSector(Guid id)
         {
-            var region  = await _context.Regions.Include(r => r.Country)
+            var sector  = await _context.Sectors.Include(r => r.Massive)
                     .FirstOrDefaultAsync(r => r.Id == id);
 
-            if (region == null)
+            if (sector == null)
             {
                 return NotFound();
             }
 
-            return region;                
+            return sector;                
         }
 
-         // POST: api/Regions
         [HttpPost]
-        public async Task<ActionResult<Region>> PostRegion(Region region)
+        public async Task<ActionResult<Sector>> PostSector(Sector sector)
         {
-            _context.Regions.Add(region);
+            _context.Sectors.Add(sector);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetRegion), new { id = region.Id }, region);
+            return CreatedAtAction(nameof(GetSector), new { id = sector.Id }, sector);
         }
 
-        // PUT: api/Regions/5
+        // PUT: api/Sectors/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutRegion(Guid id, Region region)
+        public async Task<IActionResult> PutSector(Guid id, Sector sector)
         {
-            if (id != region.Id)
+            if (id != sector.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(region).State = EntityState.Modified;
+            _context.Entry(sector).State = EntityState.Modified;
 
             try
             {
@@ -70,7 +69,7 @@ namespace Backend.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!RegionExists(id))
+                if (!SectorExists(id))
                 {
                     return NotFound();
                 }
@@ -81,26 +80,27 @@ namespace Backend.Controllers
             }
             return NoContent();
         }
-        
-        // DELETE: api/Regions/5
+
+        // DELETE: api/Sectors/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteRegion(Guid id)
+        public async Task<IActionResult> DeleteSector(Guid id)
         {
-            var region = await _context.Regions.FindAsync(id);
-            if (region == null)
+            var sector = await _context.Sectors.FindAsync(id);
+            if (sector == null)
             {
                 return NotFound();
             }
 
-            _context.Regions.Remove(region);
+            _context.Sectors.Remove(sector);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool RegionExists(Guid id)
+
+         private bool SectorExists(Guid id)
         {
-            return _context.Regions.Any(e => e.Id == id);
+            return _context.Sectors.Any(e => e.Id == id);
         }
     }
 }
