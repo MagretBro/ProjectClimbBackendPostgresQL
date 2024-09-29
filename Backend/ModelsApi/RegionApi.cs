@@ -12,6 +12,8 @@ namespace Backend.ModelsApi
 
         // Внешний ключ, который ссылается на категорию
         public Guid CountryId { get; set; }
-        
+        // Список массивов, который вернется в веб
+        public ICollection<MassiveApi> Massives { get; set; } = new List<MassiveApi>(); // Навигационное свойство
+
     }
 }
