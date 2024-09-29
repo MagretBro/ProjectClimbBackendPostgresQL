@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Backend.Data;
 using Backend.Models;
+using Backend.ModelsApi;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -30,17 +31,22 @@ namespace Backend.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Region>> GetRegion(Guid id)
+        public async Task<ActionResult<RegionApi>> GetRegion(Guid id)
         {
             var region  = await _context.Regions.Include(r => r.Country)
-                    .FirstOrDefaultAsync(r => r.Id == id);
+                    .FirstOrDefaultAsync(r => r.CountryId == id);
 
             if (region == null)
             {
                 return NotFound();
             }
 
-            return region;                
+            var regionApi = new RegionApi();
+            regionApi.Id = region.Id;
+            regionApi.Name = region.Name;
+            regionApi.CountryId = region.CountryId;
+
+            return regionApi;                
         }
 
          // POST: api/Regions

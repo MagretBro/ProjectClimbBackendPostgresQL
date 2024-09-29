@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/margaritaborodina/Documents/STUDY/ANGULAR/ProjectClimb/Backend/Backend.csproj": {}
+    "/Users/margaritaborodina/Documents/STUDY/ANGULAR/ProjClimb/ProjectClimbBackendPostgresQL/Backend/Backend.csproj": {}
   },
   "projects": {
-    "/Users/margaritaborodina/Documents/STUDY/ANGULAR/ProjectClimb/Backend/Backend.csproj": {
+    "/Users/margaritaborodina/Documents/STUDY/ANGULAR/ProjClimb/ProjectClimbBackendPostgresQL/Backend/Backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/margaritaborodina/Documents/STUDY/ANGULAR/ProjectClimb/Backend/Backend.csproj",
+        "projectUniqueName": "/Users/margaritaborodina/Documents/STUDY/ANGULAR/ProjClimb/ProjectClimbBackendPostgresQL/Backend/Backend.csproj",
         "projectName": "Backend",
-        "projectPath": "/Users/margaritaborodina/Documents/STUDY/ANGULAR/ProjectClimb/Backend/Backend.csproj",
+        "projectPath": "/Users/margaritaborodina/Documents/STUDY/ANGULAR/ProjClimb/ProjectClimbBackendPostgresQL/Backend/Backend.csproj",
         "packagesPath": "/Users/margaritaborodina/.nuget/packages/",
-        "outputPath": "/Users/margaritaborodina/Documents/STUDY/ANGULAR/ProjectClimb/Backend/obj/",
+        "outputPath": "/Users/margaritaborodina/Documents/STUDY/ANGULAR/ProjClimb/ProjectClimbBackendPostgresQL/Backend/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/margaritaborodina/.nuget/NuGet/NuGet.Config"

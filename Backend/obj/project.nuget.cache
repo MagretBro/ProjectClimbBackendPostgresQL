@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Ptbh+JGRY3Q=",
+  "dgSpecHash": "q9ybAxUZ5Sw=",
   "success": true,
-  "projectFilePath": "/Users/margaritaborodina/Documents/STUDY/ANGULAR/ProjectClimb/Backend/Backend.csproj",
+  "projectFilePath": "/Users/margaritaborodina/Documents/STUDY/ANGULAR/ProjClimb/ProjectClimbBackendPostgresQL/Backend/Backend.csproj",
   "expectedPackageFiles": [
     "/Users/margaritaborodina/.nuget/packages/humanizer/2.14.1/humanizer.2.14.1.nupkg.sha512",
     "/Users/margaritaborodina/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
