@@ -10,7 +10,7 @@ namespace Backend.Models
         public Guid Id { get; set; }  // Используем Guid как тип идентификатора
         public string? Name { get; set; }
 
-        public ICollection<Region> Regions { get; set; } = new List<Region>();
+        public List<Region> Regions { get; set; } = new List<Region>();
 
     }
 }

@@ -16,7 +16,7 @@ namespace Backend.Models
         public Guid RegionId { get; set; }
         // Навигационное свойство для связи с Region
         public Region? Region { get; set; }
-        public ICollection<Sector> Sectors { get; set; } = new List<Sector>(); // Навигационное свойство
+        public List<Sector> Sectors { get; set; } = new List<Sector>(); // Навигационное свойство
     
     }
 }

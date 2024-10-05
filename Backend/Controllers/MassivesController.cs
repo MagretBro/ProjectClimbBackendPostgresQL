@@ -6,6 +6,14 @@ using Backend.Data;
 using Backend.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Runtime.InteropServices.Marshalling;
+
 
 namespace Backend.Controllers
 {
@@ -20,73 +28,61 @@ namespace Backend.Controllers
             _context = context;
         }
 
+         // Получить все массивы
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Massive>>> GetMassives()
+        public async Task<List<Massive>> GetMassives()
         {
-            return await _context.Massives.Include(m => m.Region).ToListAsync();
+            return await _context.Massives.ToListAsync();
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Massive>> GetMassive(Guid id)
+        // Получить массивы для конкретного региона
+        [HttpGet("region/{regionId}")]
+        public async Task<List<Massive>> GetMassivesByRegion(Guid regionId)
         {
-            var massive = await _context.Massives.Include(m => m.Region)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            return await _context.Massives
+                .Where(m => m.RegionId == regionId)
+                .ToListAsync();
+        }
 
+        // Получить массив by id
+        [HttpGet("massive/{Id}")]
+        public async Task<Massive?> GetMassiveById(Guid Id)
+        {
+            var massive = await _context.Massives
+            .Include(x => x.Sectors)
+            .FirstOrDefaultAsync(m => m.Id == Id);
+
+            // Если массив не найден, возвращаем null
             if (massive == null)
+                return null;
+
+
+            var resMassive = new Massive();
             {
-                return NotFound();
-            }
-
-            return massive;                
-        }
-
-        [HttpPost]
-        public async Task<ActionResult<Massive>> PostMassive(Massive massive)
-        {
-            _context.Massives.Add(massive);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction(nameof(GetMassive), new { id = massive.Id }, massive);
-        }
-
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutMassive(Guid id, Massive massive)
-        {
-            if (id != massive.Id)
+            
+            resMassive.Id = massive.Id;
+            resMassive.Name = massive.Name;
+            resMassive.Describe = massive.Describe;
+            resMassive.Picture = massive.Picture;
+            resMassive.MapPoint = massive.MapPoint;
+            resMassive.Sectors = new List<Sector>(); 
+    
+            };
+        
+            foreach (var sector in massive.Sectors)
             {
-                return BadRequest();
-            }
-
-            _context.Entry(massive).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!_context.Massives.Any(e => e.Id == id))
+                var resSector = new Sector();
                 {
-                    return NotFound();
+                    resSector.Id  = sector.Id;
+                    resSector.Name = sector.Name;
+                    resSector.MassiveId = sector.Id;
                 }
-                throw;
+                resMassive.Sectors.Add(resSector);
             }
-            return NoContent();
-        }
+                
+            return resMassive; // Вернется null, если massive не найден
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteMassive(Guid id)
-        {
-            var massive = await _context.Massives.FindAsync(id);
-            if (massive == null)
-            {
-                return NotFound();
-            }
 
-            _context.Massives.Remove(massive);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
         }
     }
 }

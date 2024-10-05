@@ -23,11 +23,11 @@ namespace Backend.Controllers
         }
 
         // GET: api/ClimbingRoutes
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<ClimbingRoute>>> GetClimbingRoutes()
-        {
-            return await _context.ClimbingRoutes.Include(r => r.Sector).ToListAsync();
-        }
+        // [HttpGet]
+        // public async Task<ActionResult<IEnumerable<ClimbingRoute>>> GetClimbingRoutes()
+        // {
+        //     return await _context.ClimbingRoutes.Include(r => r.Sector).ToListAsync();
+        // }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<ClimbingRoute>> GetClimbingRoute(Guid id)
