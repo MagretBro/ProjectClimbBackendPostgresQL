@@ -22,35 +22,80 @@ namespace Backend.Controllers
             _context = context;
         }
 
-        // GET: api/Sectors
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Sector>>> GetSectors()
+    
+        // Получить sector by id
+        [HttpGet("sector/{Id}")]
+        public async Task<Sector?> GetSectorById(Guid Id)
         {
-            return await _context.Sectors.Include(r => r.Massive).ToListAsync();
-        }
+            var sector = await _context.Sectors
+            .Include(x => x.ClimbingRoutes)
+            .FirstOrDefaultAsync(m => m.Id == Id);
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Sector>> GetSector(Guid id)
-        {
-            var sector  = await _context.Sectors.Include(r => r.Massive)
-                    .FirstOrDefaultAsync(r => r.Id == id);
-
+            // Если Sector не найден, возвращаем null
             if (sector == null)
+                return null;
+
+
+            var resSector = new Sector();
             {
-                return NotFound();
+            
+            resSector.Id = sector.Id;
+            resSector.Name = sector.Name;
+            resSector.Describe = sector.Describe;
+            resSector.Picture = sector.Picture;
+            resSector.MapPoint = sector.MapPoint;
+            resSector.ClimbingRoutes = new List<ClimbingRoute>(); 
+    
+            };
+        
+            foreach (var climbingroute in sector.ClimbingRoutes)
+            {
+                var resClimbingRoute = new ClimbingRoute();
+                {
+                    resClimbingRoute.Id  = climbingroute.Id;
+                    resClimbingRoute.Name = climbingroute.Name;
+                    resClimbingRoute.Describe = climbingroute.Describe;
+                    resClimbingRoute.MapPoint = climbingroute.MapPoint;
+                    resClimbingRoute.MapVidget = climbingroute.MapVidget;
+                    resClimbingRoute.Picture = climbingroute.Picture;
+                    resClimbingRoute.Category = climbingroute.Category;
+                    resClimbingRoute.Testimonial = climbingroute.Testimonial;
+                    resClimbingRoute.BoltCount = climbingroute.BoltCount;
+
+                }
+                resSector.ClimbingRoutes.Add(resClimbingRoute);
             }
+                
+            return resSector; // Вернется null, если sector не найден
 
-            return sector;                
+
         }
 
-        [HttpPost]
-        public async Task<ActionResult<Sector>> PostSector(Sector sector)
+        [HttpGet("sector/{sectorId}/image")]
+        public async Task<IActionResult> GetSectorImage(Guid sectorId)
         {
-            _context.Sectors.Add(sector);
-            await _context.SaveChangesAsync();
+            var sector = await _context.Sectors.FindAsync(sectorId);
 
-            return CreatedAtAction(nameof(GetSector), new { id = sector.Id }, sector);
+            if (sector == null || sector.Picture == null)
+                return NotFound();
+
+            var imageUrl = sector.Picture[0]; // Возвращаем первый элемент массива строк
+                return Ok(imageUrl); // Возвращаем путь/URL изображения
         }
+
+
+
+
+
+
+        // [HttpPost]
+        // public async Task<ActionResult<Sector>> PostSector(Sector sector)
+        // {
+        //     _context.Sectors.Add(sector);
+        //     await _context.SaveChangesAsync();
+
+        //     return CreatedAtAction(nameof(GetSector), new { id = sector.Id }, sector);
+        // }
 
         // PUT: api/Sectors/5
         [HttpPut("{id}")]
