@@ -3,6 +3,7 @@ using System;
 using Backend.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241008072004_imagesRenamePictures")]
+    partial class imagesRenamePictures
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,7 +62,7 @@ namespace Backend.Migrations
 
                     b.HasIndex("SectorId");
 
-                    b.ToTable("ClimbingRoutes", (string)null);
+                    b.ToTable("ClimbingRoutes");
                 });
 
             modelBuilder.Entity("Backend.Models.Country", b =>
@@ -73,7 +76,7 @@ namespace Backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Countries", (string)null);
+                    b.ToTable("Countries");
                 });
 
             modelBuilder.Entity("Backend.Models.Massive", b =>
@@ -101,7 +104,7 @@ namespace Backend.Migrations
 
                     b.HasIndex("RegionId");
 
-                    b.ToTable("Massives", (string)null);
+                    b.ToTable("Massives");
                 });
 
             modelBuilder.Entity("Backend.Models.Picture", b =>
@@ -123,7 +126,7 @@ namespace Backend.Migrations
 
                     b.HasIndex("SectorId");
 
-                    b.ToTable("Pictures", (string)null);
+                    b.ToTable("Pictures");
                 });
 
             modelBuilder.Entity("Backend.Models.Region", b =>
@@ -142,7 +145,7 @@ namespace Backend.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.ToTable("Regions", (string)null);
+                    b.ToTable("Regions");
                 });
 
             modelBuilder.Entity("Backend.Models.Sector", b =>
@@ -167,7 +170,7 @@ namespace Backend.Migrations
 
                     b.HasIndex("MassiveId");
 
-                    b.ToTable("Sectors", (string)null);
+                    b.ToTable("Sectors");
                 });
 
             modelBuilder.Entity("Backend.Models.ClimbingRoute", b =>

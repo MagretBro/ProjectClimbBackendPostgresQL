@@ -18,7 +18,7 @@ namespace Backend.Data
         public DbSet<Massive> Massives { get; set; }
         public DbSet<Sector> Sectors { get; set; }
         public DbSet<ClimbingRoute> ClimbingRoutes { get; set; }
-
+         public DbSet<Picture> Pictures { get; set; }
 
 
 
@@ -59,7 +59,13 @@ namespace Backend.Data
 
             modelBuilder.Entity<ClimbingRoute>()
                 .HasKey(cr => cr.Id);
-        }
+        
+    // Настройка связи между Sector и Picture через ParentId
+            modelBuilder.Entity<Picture>()
+            .HasOne<Sector>()
+            .WithMany(s => s.Pictures)
+            .HasForeignKey(p => p.ParentId);
 
+        }
     }
 }

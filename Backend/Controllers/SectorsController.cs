@@ -15,11 +15,12 @@ namespace Backend.Controllers
     [ApiController]
     public class SectorsController : ControllerBase
     {
+        private readonly ILogger<SectorsController> _logger;
         private readonly AppDbContext _context;
-
-        public SectorsController(AppDbContext context)
+        public SectorsController(AppDbContext context, ILogger<SectorsController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
     
@@ -27,26 +28,39 @@ namespace Backend.Controllers
         [HttpGet("sector/{Id}")]
         public async Task<Sector?> GetSectorById(Guid Id)
         {
+            _logger.LogInformation($"Получение сектора с ID: {Id}");
+
             var sector = await _context.Sectors
             .Include(x => x.ClimbingRoutes)
             .FirstOrDefaultAsync(m => m.Id == Id);
 
             // Если Sector не найден, возвращаем null
             if (sector == null)
+            {
+                _logger.LogWarning($"Сектор с ID: {Id} не найден.");
                 return null;
+            }
+                _logger.LogInformation($"Сектор с ID: {Id} успешно найден.");
 
+
+            var pictures = await _context.Pictures
+                .Where(p => p.ParentId == Id)
+                .ToListAsync();
 
             var resSector = new Sector();
             {
-            
             resSector.Id = sector.Id;
             resSector.Name = sector.Name;
             resSector.Describe = sector.Describe;
-            resSector.Picture = sector.Picture;
+            resSector.Pictures = new List<Picture>();
             resSector.MapPoint = sector.MapPoint;
             resSector.ClimbingRoutes = new List<ClimbingRoute>(); 
-    
             };
+
+            foreach (var resPic in pictures)
+            {
+                resSector.Pictures.Add(resPic);
+            }
         
             foreach (var climbingroute in sector.ClimbingRoutes)
             {
@@ -67,37 +81,16 @@ namespace Backend.Controllers
             }
                 
             return resSector; // Вернется null, если sector не найден
-
-
         }
 
-        [HttpGet("sector/{sectorId}/image")]
-        public async Task<IActionResult> GetSectorImage(Guid sectorId)
-        {
-            var sector = await _context.Sectors.FindAsync(sectorId);
-
-            if (sector == null || sector.Picture == null)
-                return NotFound();
-
-            var imageUrl = sector.Picture[0]; // Возвращаем первый элемент массива строк
-                return Ok(imageUrl); // Возвращаем путь/URL изображения
-        }
+        
 
 
 
 
 
 
-        // [HttpPost]
-        // public async Task<ActionResult<Sector>> PostSector(Sector sector)
-        // {
-        //     _context.Sectors.Add(sector);
-        //     await _context.SaveChangesAsync();
-
-        //     return CreatedAtAction(nameof(GetSector), new { id = sector.Id }, sector);
-        // }
-
-        // PUT: api/Sectors/5
+   
         [HttpPut("{id}")]
         public async Task<IActionResult> PutSector(Guid id, Sector sector)
         {
