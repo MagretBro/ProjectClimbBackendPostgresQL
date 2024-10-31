@@ -1,0 +1,37 @@
+INSERT INTO "ClimbingRoutes" (
+    "Id",
+    "Name",
+    "Describe",
+    "MapPoint",
+    "Category",
+    "Testimonial",
+    "BoltCount",
+    "SectorId",
+    "NumRouter",
+    "Type",
+    "Height",
+    "Bolts"
+  )
+VALUES 
+(gen_random_uuid(), 'Suud Suud Jai / Put Your Heart Into It', 'Описание трассы', '18.785465,99.236590', '6b+', 'Sport 22m, 14', '', '4889efe1-8f67-41d7-a3c9-47075a5001ff', '1', 'Sport', '22', '14'),
+(gen_random_uuid(), 'Kra Ten Kong Hua Jai / Heartbeat', 'Описание трассы', '18.785465,99.236590', '6b+', 'Sport 18m, 11', '', '4889efe1-8f67-41d7-a3c9-47075a5001ff', '2', 'Sport', '18', '11'),
+(gen_random_uuid(), 'Gam Lang Jai / Spirit, Morale', 'Описание трассы', '18.785465,99.236590', '6b+', 'Sport 18m, 11', '', '4889efe1-8f67-41d7-a3c9-47075a5001ff', '3', 'Sport', '18', '11'),
+(gen_random_uuid(), 'Jai Kwang / Open-Minded', 'Описание трассы', '18.785465,99.236590', '6c', 'Sport 26m, 15', '', '4889efe1-8f67-41d7-a3c9-47075a5001ff', '4', 'Sport', '26', '15'),
+(gen_random_uuid(), 'Unknown', 'Описание трассы', '18.785465,99.236590', '6c+', 'Sport 25m, 16', '', '4889efe1-8f67-41d7-a3c9-47075a5001ff', '5', 'Sport', '25', '16'),
+(gen_random_uuid(), 'Pah Dtat Hua Jai / Heart Surgery', 'Описание трассы', '18.785465,99.236590', '6b', 'Sport 25m, 13', '', '4889efe1-8f67-41d7-a3c9-47075a5001ff', '6', 'Sport', '25', '13'),
+(gen_random_uuid(), 'Mar Jark Jai / Heartfelt', 'Описание трассы', '18.785465,99.236590', '6a+', 'Sport 25m, 15', '', '4889efe1-8f67-41d7-a3c9-47075a5001ff', '7', 'Sport', '25', '15'),
+(gen_random_uuid(), 'Tang Jai / Intentions', 'Описание трассы', '18.785465,99.236590', '6a+', 'Sport 25m, 15', '', '4889efe1-8f67-41d7-a3c9-47075a5001ff', '8', 'Sport', '25', '15'),
+(gen_random_uuid(), 'Deung Duut Jai / Attractive', 'Описание трассы', '18.785465,99.236590', '6b', 'Sport 20m, 13', '', '4889efe1-8f67-41d7-a3c9-47075a5001ff', '9', 'Sport', '20', '13'),
+(gen_random_uuid(), 'Jai Tuud / Wimp', 'Описание трассы', '18.785465,99.236590', '5c', 'Sport 18m, 12', '', '4889efe1-8f67-41d7-a3c9-47075a5001ff', '10', 'Sport', '18', '12'),
+(gen_random_uuid(), 'Jai Rag / I Love My Heart', 'Описание трассы', '18.785465,99.236590', '5c', 'Sport 16m, 12', '', '4889efe1-8f67-41d7-a3c9-47075a5001ff', '11', 'Sport', '16', '12'),
+(gen_random_uuid(), 'Kob Jai Lai Lai / Thank You Very Much', 'Описание трассы', '18.785465,99.236590', '6b', 'Sport 16m, 10', '', '4889efe1-8f67-41d7-a3c9-47075a5001ff', '12', 'Sport', '16', '10'),
+(gen_random_uuid(), 'Rang Lai Jai / Hesitate', 'Описание трассы', '18.785465,99.236590', '6a+', 'Sport 16m, 11', '', '4889efe1-8f67-41d7-a3c9-47075a5001ff', '13', 'Sport', '16', '11'),
+(gen_random_uuid(), 'Song Jit Song Jai / I am Torn', 'Описание трассы', '18.785465,99.236590', '5c', 'Sport 16m, 11', '', '4889efe1-8f67-41d7-a3c9-47075a5001ff', '14', 'Sport', '16', '11'),
+(gen_random_uuid(), 'Jai Ngai / Gullible', 'Описание трассы', '18.785465,99.236590', '6a', 'Sport 12m, 9', '', '4889efe1-8f67-41d7-a3c9-47075a5001ff', '15', 'Sport', '12', '9'),
+(gen_random_uuid(), 'Pun Jai / Proud', 'Описание трассы', '18.785465,99.236590', '6b', 'Sport 13m, 9', '', '4889efe1-8f67-41d7-a3c9-47075a5001ff', '16', 'Sport', '13', '9'),
+(gen_random_uuid(), 'Jai Guide / Guide Heart', 'Описание трассы', '18.785465,99.236590', '6b+', 'Sport 13m, 6', '', '4889efe1-8f67-41d7-a3c9-47075a5001ff', '17', 'Sport', '13', '6'),
+(gen_random_uuid(), 'Mun Jai / Confident', 'Описание трассы', '18.785465,99.236590', '6c', 'Sport 19m, 10', '', '4889efe1-8f67-41d7-a3c9-47075a5001ff', '18', 'Sport', '19', '10'),
+(gen_random_uuid(), 'Jai Yen Yen / Patient / The Proposal / Calm', 'Описание трассы', '18.785465,99.236590', '6c+', 'Sport 21m, 11', '', '4889efe1-8f67-41d7-a3c9-47075a5001ff', '19', 'Sport', '21', '11'),
+(gen_random_uuid(), 'Jai Glah Reu Plao / Are You Courageous?', 'Описание трассы', '18.785465,99.236590', '7a+', 'Sport 22m, 10', '', '4889efe1-8f67-41d7-a3c9-47075a5001ff', '20', 'Sport', '22', '10'),
+(gen_random_uuid(), 'Dee Jai Tee Dai Geud / It is Great to be Alive', 'Описание трассы', '18.785465,99.236590', '6b+', 'Sport 19m, 10', '', '4889efe1-8f67-41d7-a3c9-47075a5001ff', '21', 'Sport', '19', '10');
+  

@@ -23,6 +23,16 @@ namespace Backend.Controllers
             _logger = logger;
         }
 
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Sector>>> GetAllSectors()
+        {
+            var sectors = await _context.Sectors
+                .Include(x => x.ClimbingRoutes)
+                .ToListAsync();
+            return Ok(sectors);
+        }
+
     
         // Получить sector by id
         [HttpGet("sector/{Id}")]
@@ -49,12 +59,13 @@ namespace Backend.Controllers
 
             var resSector = new Sector();
             {
-            resSector.Id = sector.Id;
-            resSector.Name = sector.Name;
-            resSector.Describe = sector.Describe;
-            resSector.Pictures = new List<Picture>();
-            resSector.MapPoint = sector.MapPoint;
-            resSector.ClimbingRoutes = new List<ClimbingRoute>(); 
+                resSector.NumSector = sector.NumSector;
+                resSector.Id = sector.Id;
+                resSector.Name = sector.Name;
+                resSector.Describe = sector.Describe;
+                resSector.Pictures = new List<Picture>();
+                resSector.MapPoint = sector.MapPoint;
+                resSector.ClimbingRoutes = new List<ClimbingRoute>(); 
             };
 
             foreach (var resPic in pictures)
@@ -75,6 +86,10 @@ namespace Backend.Controllers
                     resClimbingRoute.Category = climbingroute.Category;
                     resClimbingRoute.Testimonial = climbingroute.Testimonial;
                     resClimbingRoute.BoltCount = climbingroute.BoltCount;
+                    resClimbingRoute.NumRouter = climbingroute.NumRouter;
+                    resClimbingRoute.Type = climbingroute.Type;
+                    resClimbingRoute.Height = climbingroute.Height;
+                    resClimbingRoute.Bolts = climbingroute.Bolts;
 
                 }
                 resSector.ClimbingRoutes.Add(resClimbingRoute);

@@ -76,6 +76,9 @@ namespace Backend.Controllers
                     resSector.Id  = sector.Id;
                     resSector.Name = sector.Name;
                     resSector.MassiveId = sector.Id;
+                    resSector.NumSector = sector.NumSector;
+                    resSector.Describe = sector.Describe;
+                    resSector.MapPoint = sector.MapPoint;
                 }
                 resMassive.Sectors.Add(resSector);
             }

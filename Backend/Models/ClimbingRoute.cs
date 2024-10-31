@@ -16,6 +16,10 @@ namespace Backend.Models
         public string? Category { get; set; }  // Категория сложности
         public string? Testimonial { get; set; } // Тип, высота, общее число шлямбуров, вкл. станцию
         public string? BoltCount { get; set; } // Разбивка на количество болтов, threads
+        public string? Type { get; set; }
+        public string? Height { get; set; }
+        public string? Bolts { get; set; }
+        public string? NumRouter { get; set; }
         public Guid SectorId { get; set; } // Внешний ключ
         public Sector? Sector { get; set; } // Навигационное свойство    
     }

@@ -7,12 +7,16 @@ namespace Backend.ModelsApi
 {
     public class ClimbingRouteApi
     {
-         public Guid Id { get; set; }
+        public Guid Id { get; set; }
         public string? Name { get; set; }
         public string? Describe { get; set; }
         public Guid SectorId { get; set; } // Внешний ключ
         public string[]? Picture { get; set; } // Массив изображений
         public string? MapPoint { get; set; } // Координаты на карте
-    
+        public string? Type { get; set; }
+        public string? Height { get; set; }
+        public string? Bolts { get; set; }
+        public string? NumRouter { get; set; }
+
     }
 }
