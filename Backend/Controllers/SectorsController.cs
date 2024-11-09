@@ -101,7 +101,55 @@ namespace Backend.Controllers
         
 
 
+///////////////
 
+  [HttpGet("{sectorId}/routeCountsForAllSectorsByCategory")]
+        public async Task<ActionResult<Dictionary<string, int>>> GetRouteCountsForAllSectorsByCategory(Guid sectorId) 
+        {
+
+            var sector = await _context.Sectors
+                .Include(s => s.ClimbingRoutes)
+                .FirstOrDefaultAsync(s => s.Id == sectorId);
+            
+            if (sector == null)
+            {
+                return NotFound($"Sector with Id '{sectorId}' not found.");
+            }
+
+                var categoryCounts = new Dictionary<string, int>{
+                    {"5a", 0}, {"5b", 0}, {"5c", 0},
+                    {"6a", 0}, {"6b", 0}, {"6c", 0},
+                    {"7a", 0}, {"7b", 0}, {"7c", 0},
+                    {"8a", 0}, {"8b", 0}
+                };
+                
+                    foreach (var route in sector.ClimbingRoutes )
+                    {
+                        var category = route.Category?.Trim() ?? "";
+                        if(category.EndsWith("+"))
+                        {
+                            category = category.Substring(0, category.Length - 1);
+                        }
+
+                        if (categoryCounts.ContainsKey(category))
+                        {
+                            categoryCounts[category]++;
+                        }
+                        else if (category.StartsWith("8") || category.StartsWith("9") || category.StartsWith("10"))
+                        {
+                            categoryCounts["8b"]++;
+                        }
+                    }
+                
+                return categoryCounts;
+
+        }
+    
+
+
+
+
+////////////////
 
 
 

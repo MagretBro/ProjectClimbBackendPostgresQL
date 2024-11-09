@@ -28,6 +28,51 @@ namespace Backend.Controllers
             _context = context;
         }
 
+        [HttpGet("{massiveId}/routeCountsByCategory")]
+        public async Task<ActionResult<Dictionary<string, int>>> GetRouteCountsByCategory(Guid massiveId) 
+        {
+
+            var massive = await _context.Massives
+                .Include(m => m.Sectors)
+                .ThenInclude(s => s.ClimbingRoutes)
+                .FirstOrDefaultAsync(m => m.Id == massiveId);
+            
+            if (massive == null)
+            {
+                return NotFound($"Massive with Id '{massiveId}' not found.");
+            }
+
+                var categoryCounts = new Dictionary<string, int>{
+                    {"5a", 0}, {"5b", 0}, {"5c", 0},
+                    {"6a", 0}, {"6b", 0}, {"6c", 0},
+                    {"7a", 0}, {"7b", 0}, {"7c", 0},
+                    {"8a", 0}, {"8b", 0}
+                };
+                foreach (var sector in massive.Sectors)
+                {
+                    foreach (var route in sector.ClimbingRoutes )
+                    {
+                        var category = route.Category?.Trim() ?? "";
+                        if(category.EndsWith("+"))
+                        {
+                            category = category.Substring(0, category.Length - 1);
+                        }
+
+                        if (categoryCounts.ContainsKey(category))
+                        {
+                            categoryCounts[category]++;
+                        }
+                        else if (category.StartsWith("8") || category.StartsWith("9") || category.StartsWith("10"))
+                        {
+                            categoryCounts["8b"]++;
+                        }
+                    }
+                }
+                return categoryCounts;
+
+        }
+    
+
          // Получить все массивы
         [HttpGet]
         public async Task<List<Massive>> GetMassives()
@@ -84,8 +129,9 @@ namespace Backend.Controllers
             }
                 
             return resMassive; // Вернется null, если massive не найден
-
-
         }
+        
+    
+
     }
 }
