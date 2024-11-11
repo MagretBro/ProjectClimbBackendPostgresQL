@@ -15,6 +15,6 @@ namespace Backend.Models
         public string? MapPoint { get; set; } // Координаты на карте
         public Guid MassiveId { get; set; } // Внешний ключ
         public Massive? Massive { get; set; } // Навигационное свойство
-        public ICollection<ClimbingRoute> ClimbingRoutes { get; set; } = new List<ClimbingRoute>(); // Навигационное свойство
+        public ICollection<ClimbingRoute>? ClimbingRoutes { get; set; } = new List<ClimbingRoute>(); // Навигационное свойство
     }
 }

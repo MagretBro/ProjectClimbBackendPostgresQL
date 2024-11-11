@@ -66,6 +66,7 @@ namespace Backend.Controllers
                 resSector.Pictures = new List<Picture>();
                 resSector.MapPoint = sector.MapPoint;
                 resSector.ClimbingRoutes = new List<ClimbingRoute>(); 
+                resSector.MassiveId = sector.MassiveId;
             };
 
             foreach (var resPic in pictures)

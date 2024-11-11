@@ -80,6 +80,9 @@ namespace Backend.Controllers
             return await _context.Massives.ToListAsync();
         }
 
+
+
+
         // Получить массивы для конкретного региона
         [HttpGet("region/{regionId}")]
         public async Task<List<Massive>> GetMassivesByRegion(Guid regionId)
@@ -88,6 +91,11 @@ namespace Backend.Controllers
                 .Where(m => m.RegionId == regionId)
                 .ToListAsync();
         }
+
+
+
+
+
 
         // Получить массив by id
         [HttpGet("massive/{Id}")]
@@ -120,7 +128,7 @@ namespace Backend.Controllers
                 {
                     resSector.Id  = sector.Id;
                     resSector.Name = sector.Name;
-                    resSector.MassiveId = sector.Id;
+                    resSector.MassiveId = sector.MassiveId;
                     resSector.NumSector = sector.NumSector;
                     resSector.Describe = sector.Describe;
                     resSector.MapPoint = sector.MapPoint;
@@ -129,6 +137,36 @@ namespace Backend.Controllers
             }
                 
             return resMassive; // Вернется null, если massive не найден
+        }
+
+        // Получить массив by id - ГЕНА
+        [HttpGet("getListSectorsByMassiveId/{Id}")]
+        public async Task<List<Sector>?> GetListSectorsByMassiveId(Guid Id)
+        {
+            var massive = await _context.Massives
+            .Include(x => x.Sectors)
+            .FirstOrDefaultAsync(m => m.Id == Id);
+
+            // Если массив не найден, возвращаем null
+            if (massive == null)
+                return null;
+
+
+            var sectors = new List<Sector>(); 
+        
+            foreach (var sector in massive.Sectors)
+            {
+                var resSector = new Sector();
+                {
+                    resSector.Id  = sector.Id;
+                    resSector.Name = sector.Name;
+                    resSector.MassiveId = sector.MassiveId;
+                
+                }
+                sectors.Add(resSector);
+            }
+                
+            return sectors; // Вернется null, если massive не найден
         }
         
     
