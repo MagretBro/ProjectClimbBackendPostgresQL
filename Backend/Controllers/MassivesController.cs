@@ -160,8 +160,8 @@ namespace Backend.Controllers
                 {
                     resSector.Id  = sector.Id;
                     resSector.Name = sector.Name;
+                    resSector.NumSector = sector.NumSector;
                     resSector.MassiveId = sector.MassiveId;
-                
                 }
                 sectors.Add(resSector);
             }
