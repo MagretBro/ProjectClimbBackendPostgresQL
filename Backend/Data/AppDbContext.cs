@@ -18,7 +18,9 @@ namespace Backend.Data
         public DbSet<Massive> Massives { get; set; }
         public DbSet<Sector> Sectors { get; set; }
         public DbSet<ClimbingRoute> ClimbingRoutes { get; set; }
-         public DbSet<Picture> Pictures { get; set; }
+        public DbSet<Picture> Pictures { get; set; }
+        public DbSet<User> Users { get; set; }
+
 
 
 
