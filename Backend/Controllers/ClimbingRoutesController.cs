@@ -8,9 +8,11 @@ using Backend.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Backend.Controllers
 {
+    [Authorize]  // Это ограничивает доступ ко всем методам контроллера
     [Route("api/[controller]")]
     [ApiController]
     public class ClimbingRoutesController : ControllerBase
@@ -23,12 +25,14 @@ namespace Backend.Controllers
         }
 
         // GET: api/ClimbingRoutes
+        [AllowAnonymous] // Разрешает доступ без авторизации
         [HttpGet]
         public async Task<ActionResult<List<ClimbingRoute>>> GetClimbingRoutes()
         {
             return await _context.ClimbingRoutes.Include(r => r.Sector).ToListAsync();
         }
 
+        [AllowAnonymous] // Разрешает доступ без авторизации
         [HttpGet("{id}")]
         public async Task<ActionResult<ClimbingRoute>> GetClimbingRoute(Guid id)
         {
@@ -44,6 +48,8 @@ namespace Backend.Controllers
         }
 
          [HttpPost]
+         [Authorize(Roles = "Admin")]  // Только для пользователей с ролью "Admin"
+
         public async Task<ActionResult<ClimbingRoute>> PostClimbingRoute(ClimbingRoute climbingroute)
         {
             _context.ClimbingRoutes.Add(climbingroute);
@@ -83,6 +89,8 @@ namespace Backend.Controllers
 
         // DELETE: api/ClimbingRoutes/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]  // Только для администраторов
+
         public async Task<IActionResult> DeleteClimbingRoute(Guid id)
         {
             var climbingroute = await _context.ClimbingRoutes.FindAsync(id);

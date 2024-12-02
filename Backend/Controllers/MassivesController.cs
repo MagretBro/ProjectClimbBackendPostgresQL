@@ -13,10 +13,12 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices.Marshalling;
+using Microsoft.AspNetCore.Authorization; 
 
 
 namespace Backend.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class MassivesController : ControllerBase
@@ -28,6 +30,8 @@ namespace Backend.Controllers
             _context = context;
         }
 
+        
+        [AllowAnonymous] // Разрешает доступ без авторизации
         [HttpGet("{massiveId}/routeCountsByCategory")]
         public async Task<ActionResult<Dictionary<string, int>>> GetRouteCountsByCategory(Guid massiveId) 
         {
@@ -74,6 +78,7 @@ namespace Backend.Controllers
     
 
          // Получить все массивы
+        [AllowAnonymous] // Разрешает доступ без авторизации
         [HttpGet]
         public async Task<List<Massive>> GetMassives()
         {
@@ -84,6 +89,7 @@ namespace Backend.Controllers
 
 
         // Получить массивы для конкретного региона
+        [AllowAnonymous] // Разрешает доступ без авторизации
         [HttpGet("region/{regionId}")]
         public async Task<List<Massive>> GetMassivesByRegion(Guid regionId)
         {
@@ -98,6 +104,7 @@ namespace Backend.Controllers
 
 
         // Получить массив by id
+        [AllowAnonymous] // Разрешает доступ без авторизации
         [HttpGet("massive/{Id}")]
         public async Task<Massive?> GetMassiveById(Guid Id)
         {
@@ -139,7 +146,8 @@ namespace Backend.Controllers
             return resMassive; // Вернется null, если massive не найден
         }
 
-        // Получить массив by id - ГЕНА
+        // Получить массив by id - 
+        [AllowAnonymous] // Разрешает доступ без авторизации
         [HttpGet("getListSectorsByMassiveId/{Id}")]
         public async Task<List<Sector>?> GetListSectorsByMassiveId(Guid Id)
         {

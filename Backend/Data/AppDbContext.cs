@@ -68,6 +68,17 @@ namespace Backend.Data
             .WithMany(s => s.Pictures)
             .HasForeignKey(p => p.ParentId);
 
+    // Настройка сущности Picture для использования enum
+            modelBuilder.Entity<Picture>(entity =>
+            {
+                entity.Property(p => p.EntityType)
+                    .HasConversion<string>() // Конвертация Enum <-> String
+                    .HasMaxLength(50); // Соответствие размеру столбца в БД
+            });
+            
+    // Создание user для аутентификации
+            modelBuilder.Entity<User>()
+            .HasKey(u => u.Id);
         }
     }
 }

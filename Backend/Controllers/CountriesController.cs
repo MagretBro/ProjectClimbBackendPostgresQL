@@ -8,9 +8,12 @@ using Backend.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authorization; 
+
 
 namespace Backend.Controllers
 {
+    [Authorize] 
     [Route("api/[controller]")]
     [ApiController]
     public class CountriesController : ControllerBase
@@ -25,6 +28,7 @@ namespace Backend.Controllers
        
 
         // GET: api/GetCountries
+        [AllowAnonymous] // Разрешает доступ без авторизации
         [HttpGet]
         public async Task<List<Country>> GetCountries()
         {

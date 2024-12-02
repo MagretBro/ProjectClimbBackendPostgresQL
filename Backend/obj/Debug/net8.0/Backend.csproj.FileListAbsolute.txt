@@ -466,3 +466,12 @@
 /Users/margaritaborodina/Documents/STUDY/ANGULAR/ProjClimb/ProjectClimbBackendPostgresQL/Backend/obj/Debug/net8.0/Backend.pdb
 /Users/margaritaborodina/Documents/STUDY/ANGULAR/ProjClimb/ProjectClimbBackendPostgresQL/Backend/obj/Debug/net8.0/Backend.genruntimeconfig.cache
 /Users/margaritaborodina/Documents/STUDY/ANGULAR/ProjClimb/ProjectClimbBackendPostgresQL/Backend/obj/Debug/net8.0/ref/Backend.dll
+/Users/margaritaborodina/Documents/STUDY/ANGULAR/ProjClimb/ProjectClimbBackendPostgresQL/Backend/bin/Debug/net8.0/BCrypt.Net-Next.dll
+/Users/margaritaborodina/Documents/STUDY/ANGULAR/ProjClimb/ProjectClimbBackendPostgresQL/Backend/bin/Debug/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/Users/margaritaborodina/Documents/STUDY/ANGULAR/ProjClimb/ProjectClimbBackendPostgresQL/Backend/bin/Debug/net8.0/Microsoft.IdentityModel.Abstractions.dll
+/Users/margaritaborodina/Documents/STUDY/ANGULAR/ProjClimb/ProjectClimbBackendPostgresQL/Backend/bin/Debug/net8.0/Microsoft.IdentityModel.JsonWebTokens.dll
+/Users/margaritaborodina/Documents/STUDY/ANGULAR/ProjClimb/ProjectClimbBackendPostgresQL/Backend/bin/Debug/net8.0/Microsoft.IdentityModel.Logging.dll
+/Users/margaritaborodina/Documents/STUDY/ANGULAR/ProjClimb/ProjectClimbBackendPostgresQL/Backend/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.dll
+/Users/margaritaborodina/Documents/STUDY/ANGULAR/ProjClimb/ProjectClimbBackendPostgresQL/Backend/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+/Users/margaritaborodina/Documents/STUDY/ANGULAR/ProjClimb/ProjectClimbBackendPostgresQL/Backend/bin/Debug/net8.0/Microsoft.IdentityModel.Tokens.dll
+/Users/margaritaborodina/Documents/STUDY/ANGULAR/ProjClimb/ProjectClimbBackendPostgresQL/Backend/bin/Debug/net8.0/System.IdentityModel.Tokens.Jwt.dll

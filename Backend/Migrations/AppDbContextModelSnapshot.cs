@@ -31,10 +31,16 @@ namespace Backend.Migrations
                     b.Property<string>("BoltCount")
                         .HasColumnType("text");
 
+                    b.Property<string>("Bolts")
+                        .HasColumnType("text");
+
                     b.Property<string>("Category")
                         .HasColumnType("text");
 
                     b.Property<string>("Describe")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Height")
                         .HasColumnType("text");
 
                     b.Property<string>("MapPoint")
@@ -46,6 +52,9 @@ namespace Backend.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
+                    b.Property<string>("NumRouter")
+                        .HasColumnType("text");
+
                     b.Property<string[]>("Picture")
                         .HasColumnType("text[]");
 
@@ -55,11 +64,14 @@ namespace Backend.Migrations
                     b.Property<string>("Testimonial")
                         .HasColumnType("text");
 
+                    b.Property<string>("Type")
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
                     b.HasIndex("SectorId");
 
-                    b.ToTable("ClimbingRoutes", (string)null);
+                    b.ToTable("ClimbingRoutes");
                 });
 
             modelBuilder.Entity("Backend.Models.Country", b =>
@@ -73,7 +85,7 @@ namespace Backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Countries", (string)null);
+                    b.ToTable("Countries");
                 });
 
             modelBuilder.Entity("Backend.Models.Massive", b =>
@@ -101,7 +113,7 @@ namespace Backend.Migrations
 
                     b.HasIndex("RegionId");
 
-                    b.ToTable("Massives", (string)null);
+                    b.ToTable("Massives");
                 });
 
             modelBuilder.Entity("Backend.Models.Picture", b =>
@@ -110,20 +122,27 @@ namespace Backend.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("EntityType")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("FilePath")
+                        .HasColumnType("text");
+
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
                     b.Property<Guid?>("ParentId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("SectorId")
-                        .HasColumnType("uuid");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("SectorId");
+                    b.HasIndex("ParentId");
 
-                    b.ToTable("Pictures", (string)null);
+                    b.ToTable("Pictures");
                 });
 
             modelBuilder.Entity("Backend.Models.Region", b =>
@@ -142,7 +161,7 @@ namespace Backend.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.ToTable("Regions", (string)null);
+                    b.ToTable("Regions");
                 });
 
             modelBuilder.Entity("Backend.Models.Sector", b =>
@@ -163,11 +182,39 @@ namespace Backend.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
+                    b.Property<string>("NumSector")
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
                     b.HasIndex("MassiveId");
 
-                    b.ToTable("Sectors", (string)null);
+                    b.ToTable("Sectors");
+                });
+
+            modelBuilder.Entity("Backend.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Backend.Models.ClimbingRoute", b =>
@@ -196,7 +243,7 @@ namespace Backend.Migrations
                 {
                     b.HasOne("Backend.Models.Sector", null)
                         .WithMany("Pictures")
-                        .HasForeignKey("SectorId");
+                        .HasForeignKey("ParentId");
                 });
 
             modelBuilder.Entity("Backend.Models.Region", b =>

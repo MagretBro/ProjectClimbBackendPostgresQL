@@ -8,9 +8,12 @@ using Backend.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authorization; 
+
 
 namespace Backend.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class SectorsController : ControllerBase
@@ -24,6 +27,7 @@ namespace Backend.Controllers
         }
 
 
+        [AllowAnonymous] // Разрешает доступ без авторизации
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Sector>>> GetAllSectors()
         {
@@ -35,6 +39,7 @@ namespace Backend.Controllers
 
     
         // Получить sector by id
+        [AllowAnonymous] // Разрешает доступ без авторизации
         [HttpGet("sector/{Id}")]
         public async Task<Sector?> GetSectorById(Guid Id)
         {
@@ -103,8 +108,8 @@ namespace Backend.Controllers
 
 
 ///////////////
-
-  [HttpGet("{sectorId}/routeCountsForAllSectorsByCategory")]
+    [AllowAnonymous] // Разрешает доступ без авторизации
+    [HttpGet("{sectorId}/routeCountsForAllSectorsByCategory")]
         public async Task<ActionResult<Dictionary<string, int>>> GetRouteCountsForAllSectorsByCategory(Guid sectorId) 
         {
 
@@ -185,6 +190,7 @@ namespace Backend.Controllers
 
         // DELETE: api/Sectors/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")] // Только для администраторов
         public async Task<IActionResult> DeleteSector(Guid id)
         {
             var sector = await _context.Sectors.FindAsync(id);

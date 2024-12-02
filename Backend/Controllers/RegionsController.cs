@@ -9,9 +9,12 @@ using Backend.ModelsApi;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authorization; 
+
 
 namespace Backend.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class RegionsController : ControllerBase
@@ -24,12 +27,14 @@ namespace Backend.Controllers
         }
 
         // GET: api/Regions
+        [AllowAnonymous] // Разрешает доступ без авторизации
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Region>>> GetRegions()
         {
             return await _context.Regions.Include(r => r.Country).ToListAsync();
         }
 
+        [AllowAnonymous] // Разрешает доступ без авторизации
         [HttpGet("{id}")]
         public async Task<ActionResult<RegionApi>> GetRegion(Guid id)
         {
@@ -51,6 +56,7 @@ namespace Backend.Controllers
 
          // POST: api/Regions
         [HttpPost]
+        [Authorize(Roles = "Admin")] // Только для администраторов
         public async Task<ActionResult<Region>> PostRegion(Region region)
         {
             _context.Regions.Add(region);
@@ -90,6 +96,7 @@ namespace Backend.Controllers
         
         // DELETE: api/Regions/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")] // Только для администраторов
         public async Task<IActionResult> DeleteRegion(Guid id)
         {
             var region = await _context.Regions.FindAsync(id);
