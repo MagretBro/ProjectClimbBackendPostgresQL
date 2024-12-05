@@ -150,6 +150,33 @@ namespace Backend.Controllers
                 return categoryCounts;
 
         }
+
+
+
+
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<Sector>> PostSector(Sector sector)
+        {
+            if (sector == null)
+            {
+                return BadRequest("Sector data is null.");
+            }
+
+            sector.Id = Guid.NewGuid();
+            _context.Sectors.Add(sector);
+
+            try {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+            return CreatedAtAction(nameof(GetSectorById), new { Id = sector.Id}, sector);
+        }
+
     
 
 

@@ -29,24 +29,38 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("register")]
-    public async Task<IActionResult> Register(User user)
+public async Task<IActionResult> Register([FromBody] RegisterRequest registerRequest)
+{
+    if (_context.Users.Any(u => u.Username == registerRequest.Username))
+        return BadRequest("Такой пользователь уже есть");
+
+    var newUser = new User
     {
-        if (_context.Users.Any(u => u.Username == user.Username))
-            return BadRequest("Такой пользователь уже есть");
-        user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(user.PasswordHash);
-        _context.Users.Add(user);
-        await _context.SaveChangesAsync();
-        return Ok("User registered successfully.");
-    }
+        Username = registerRequest.Username,
+        PasswordHash = BCrypt.Net.BCrypt.HashPassword(registerRequest.Password),
+        Role = "User" // Укажите дефолтную роль, если нужно
+    };
+
+    _context.Users.Add(newUser);
+    await _context.SaveChangesAsync();
+    return Ok("Пользователь зарегистрирован.");
+}
+
 
     [HttpPost("login")]
-    public async Task<IActionResult> login([FromBody] User user)
+    public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
     {
-        var existingUser = _context.Users.FirstOrDefault(u => u.Username == user.Username);
-        if(existingUser == null || !BCrypt.Net.BCrypt.Verify(user.PasswordHash, existingUser.PasswordHash))
-        return Unauthorized("Invalid credentials");
+        var existingUser = _context.Users
+            .FirstOrDefault(u => u.Username == loginRequest.Username);
+        if (existingUser == null)
+            return Unauthorized("Неверный login");
+        Debug.WriteLine($"Stored Hash: {existingUser.PasswordHash}");
+        
+        if (!BCrypt.Net.BCrypt.Verify(loginRequest.Password, existingUser.PasswordHash))
+        return Unauthorized("Неверный password");
+        
         var token = GenerateJwtToken(existingUser);
-        return Ok(new { Token = token});
+        return Ok(new { Token = token });
     }
 
     private string GenerateJwtToken(User user)
